@@ -11,8 +11,9 @@ app=Flask(__name__)
 cors = CORS(app)
 
 controladorEstudiante = ControladorEstudiante()
+
 @app.route("/estudiante",methods=['POST'])
-def crearEstudiante():
+def crearestudiante():
     requestBody = request.get_json()
     print("Este es el objeto que recibo en python ", requestBody)
     resultado = controladorEstudiante.create(requestBody)
@@ -22,24 +23,33 @@ def crearEstudiante():
         return {"resultado": "Error al crear el estudiante"}
     return{"Resultado" : "EstudianteCreado"}
 
-@app.route("/TEST-947/<string:Cedula>",methods=['GET'])
-def test(Cedula):
+@app.route("/",methods=['GET'])
+def test():
     json = {}
-    json2={}
-    json["message"]="juan sebastian ...",
-    json2["Cedula"] = Cedula
-    return jsonify(json,json2)
-
-@app.route("/TEST-947",methods=['PUT'])
-def test2():
-    json = {}
-    json["message"]="sebastian ..."
+    json["message"]="Server running ..."
+    return jsonify(json)
+@app.route("/estudiantes",methods=['GET'])
+def getEstudiantes():
+    json=controladorEstudiante.index()
+    return jsonify(json)
+@app.route("/estudiantes",methods=['POST'])
+def crearEstudiante():
+    data = request.get_json()
+    json=controladorEstudiante.create(data)
+    return jsonify(json)
+@app.route("/estudiantes/<string:id>",methods=['GET'])
+def getEstudiante(id):
+    json=controladorEstudiante.show(id)
+    return jsonify(json)
+@app.route("/estudiantes/<string:id>",methods=['PUT'])
+def modificarEstudiante(id):
+    data = request.get_json()
+    json=controladorEstudiante.update(id,data)
     return jsonify(json)
 
-@app.route("/TEST-947",methods=['DELETE'])
-def test3():
-    json = {}
-    json["message"]="juan  ..."
+@app.route("/estudiantes/<string:id>",methods=['DELETE'])
+def eliminarEstudiante(id):
+    json=controladorEstudiante.delete(id)
     return jsonify(json)
 
 def loadFileConfig():
