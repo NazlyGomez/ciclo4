@@ -1,0 +1,7 @@
+{
+  "url-backend": "127.0.0.1",
+  "port": 9999,
+  "data-db-connection": "mongodb+srv://Grupo1-4A:Misiontic123@cluster0.wkv1tmh.mongodb.net/?retryWrites=true&w=majority",
+  "name-db": "bd-Proyecto-Ciclo4"
+
+}
